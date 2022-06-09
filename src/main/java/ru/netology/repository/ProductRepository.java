@@ -5,6 +5,10 @@ import ru.netology.domain.Product;
 public class ProductRepository {
     private Product[] products = new Product[0];
 
+    public Product[] findAll() {
+        return products;
+    }
+
     public void save(Product product) {
         int length = products.length +1;
         Product[] tmp = new Product[length];
@@ -14,16 +18,15 @@ public class ProductRepository {
         products = tmp;
     }
 
-    public Product[] findAll() {
-        return products;
-    }
-
     public void removeById(int id) {
         int length = products.length - 1;
         Product[] tmp = new Product[length];
         int index = 0;
         for (Product product : products) {
             if (product.getId() != id) {
+                if (index +1 == products.length) {
+                    return;
+                }
                 tmp[index] = product;
                 index++;
             }
